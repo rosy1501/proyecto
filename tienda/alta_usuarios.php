@@ -3,16 +3,20 @@
 include('conexion.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nombre = $mysqli->real_escape_string(htmlentities($_POST['tNombreCompletoUsuario']));
-    $domicilio = $mysqli->real_escape_string(htmlentities($_POST['tDomicilio']));
-    $telefono = $mysqli->real_escape_string(htmlentities($_POST['eTelefono']));
-    $correo_electronico = $mysqli->real_escape_string(htmlentities($_POST['tCorreoElectronico']));
-    $usuario = $mysqli->real_escape_string(htmlentities($_POST['tNombreUsuario']));
-    $password = $mysqli->real_escape_string(htmlentities($_POST['tPasswordUsuario']));
+  $tNombre = $mysqli->real_escape_string(htmlentities($_POST['tNombre']));
+  $tApellido = $mysqli->real_escape_string(htmlentities($_POST['tApellido']));
+  $eTelefono = $mysqli->real_escape_string(htmlentities($_POST['eTelefono']));
+  $tDomicilio = $mysqli->real_escape_string(htmlentities($_POST['tDomicilio']));
+  $tCorreoElectronico = $mysqli->real_escape_string(htmlentities($_POST['tCorreoElectronico']));
+  $eCodigopostal = $mysqli->real_escape_string(htmlentities($_POST['eCodigopostal']));;
+  $usuario = $mysqli->real_escape_string(htmlentities($_POST['usuario']));
+  $password = $mysqli->real_escape_string(htmlentities($_POST['password']));
+
+    
 
     $passcifred = sha1($password);
 
-    $ins = $mysqli->query("INSERT INTO usuarios(usuario,domicilio,telefono,correo,password,nombre,tipo_usuario) VALUES ('$usuario','$domicilio','$telefono','$correo_electronico','$passcifred','$nombre',2)");
+    $ins = $mysqli->query("INSERT INTO usuario(id_usuario,password,tNombre,usuario,tipo_usuario,tApellido,tDomicilio,tCorreoElectronico,eTelefono,eCodigopostal) VALUES (NULL,'$password','$tNombre','$usuario',2,'$tApellido','$tDomicilio','$tCorreoElectronico','$eTelefono','$eCodigopostal')");
 
     if ($ins) {
         echo 'success';
@@ -33,9 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="d-flex justify-content-center"> 
         <div class="card col-sm-5 p-5">
 <form method="POST"class="row g-4">
-  <div class="col-md-12">
+  <div class="col-md-6">
   <label class="form-label">Nombre</label>
-    <input type="text"  name="tNombreCompletoUsuario" id="tNombreCompletoUsuario" class="form-control">
+    <input type="text"  name="tNombre" id="tNombre" class="form-control">
+  </div>
+  <div class="col-md-6">
+  <label class="form-label">Apellido</label>
+    <input type="text"  name="tApellido" id="tApellido" class="form-control">
   </div>
   <div class="col-md-4">
     <label class="form-label">Telefono</label>
@@ -45,23 +53,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <label class="form-label">Domicilio</label>
     <input type="text" name="tDomicilio" id="tDomicilio" class="form-control">
   </div>
-  <div class="col-md-12">
+  <div class="col-md-7">
     <label class="form-label">Correo Electronico</label>
     <input type="text" name="tCorreoElectronico" id="tCorreoElectronico" class="form-control">
+  </div>
+  <div class="col-md-5">
+    <label class="form-label">Codigo postal</label>
+    <input type="text" name="eCodigopostal" id="eCodigopostal" class="form-control">
   </div>
   
   <div class="col-md-6">
     <label class="form-label">Usuario </label>
-    <input type="text" name="tNombreUsuario" id="tNombreUsuario" class="form-control">
+    <input type="text" name="usuario" id="usuario" class="form-control">
   </div>
   <div class="col-md-6">
     <label class="form-label">Contraseña </label>
-    <input type="password" name="tPasswordUsuario" id="tPasswordUsuario" class="form-control">
+    <input type="password" name="password" id="password" class="form-control">
   </div>
 
   <div class="text-center">
     <div class="col-12">
-        <button type="submit" class=" btn-dark "><i class="fa fa-floppy-o" aria-hidden="true">&nbsp;Guardar Producto</i></button>
+        <button type="submit" class=" btn-dark "><i class="fa fa-floppy-o" aria-hidden="true">&nbsp;Crear cuenta</i></button>
     </div>
 </div>
 </form>

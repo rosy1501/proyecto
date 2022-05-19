@@ -2,13 +2,13 @@
 
 session_start();
 
-if(!isset($_SESSION['id'])){
+if(!isset($_SESSION['id_usuario'])){
 header("Location: index.php");
 }
 
-$nombre = $_SESSION['nombre'];
+$nombre = $_SESSION['tNombre'];
 $tipo_usuario = $_SESSION['tipo_usuario'];
-$id = $_SESSION['id'];
+$id = $_SESSION['id_usuario'];
 
 ?>
 
@@ -54,17 +54,7 @@ $id = $_SESSION['id'];
             Categorias
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="alta_categorias.php">Alta categorias</a></li>
             <li><a class="dropdown-item" href="#">Listado Categorias</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Clientes
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="alta_clientes.php">Alta Clientes</a></li>
-            <li><a class="dropdown-item" href="#">Listado de Clientes</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -102,9 +92,6 @@ $id = $_SESSION['id'];
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-1">
-        <li class="nav-item">
-          <a class="nav-link" href="login.php">Iniciar Sesion</a>
-        </li>
         <a class="nav-link" href="logout.php">Salir</a>
     </form>
       </ul>
@@ -177,9 +164,6 @@ $id = $_SESSION['id'];
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-1">
-        <li class="nav-item">
-          <a class="nav-link" href="login.php">Iniciar Sesion</a>
-        </li>
         <a class="nav-link" href="logout.php">Salir</a>
     </form>
       </ul>

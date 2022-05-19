@@ -4,7 +4,7 @@
     if($_POST){
         $usuario = $_POST["usuario"];
         $password = $_POST["password"];
-        $sql = "SELECT id, password, nombre, tipo_usuario FROM usuarios WHERE usuario = '$usuario'";
+        $sql = "SELECT id_usuario, password, tNombre, tipo_usuario FROM usuario WHERE usuario = '$usuario'";
         $resultado = $mysqli->query($sql);
         $num = $resultado->num_rows;
         if ($num>0){
@@ -12,8 +12,8 @@
             $password_bd = $row['password'];
             $pass_c = sha1($password);
             if($password_bd == $pass_c){
-                $_SESSION['id'] = $row['id'];
-                $_SESSION['nombre'] = $row['nombre'];
+                $_SESSION['id_usuario'] = $row['id_usuario'];
+                $_SESSION['tNombre'] = $row['tNombre'];
                 $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
                 $_SESSION['usuario'] = $row['usuario'];
                 header("Location: principal.php");
@@ -88,6 +88,7 @@
         <li class="nav-item">
           <a class="nav-link" href="login.php">Iniciar Sesion</a>
         </li>
+        <a class="nav-link" href="alta_usuarios.php">Crear cuenta</a>
     </form>
       </ul>
       <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
@@ -97,5 +98,4 @@
   </div>
 </nav>
 
-
-<?php include('footer.php') ?>
+<?php include ('footer.php'); ?>

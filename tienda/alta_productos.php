@@ -6,11 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tNombreProducto = $mysqli->real_escape_string(htmlentities($_POST['tNombreProducto']));
     $tCantidadproducto = $mysqli->real_escape_string(htmlentities($_POST['tCantidadproducto']));
     $tCategoriaproducto = $mysqli->real_escape_string(htmlentities($_POST['tCategoriaproducto']));
-    $tSubcategorias = $mysqli->real_escape_string(htmlentities($_POST['tSubcategorias']));
     $tPreciocompra = $mysqli->real_escape_string(htmlentities($_POST['tPreciocompra']));
     $tPrecioventa = $mysqli->real_escape_string(htmlentities($_POST['tPrecioventa']));
     $tDescripcionproducto = $mysqli->real_escape_string(htmlentities($_POST['tDescripcionproducto']));
-    $ins = $mysqli->query("INSERT INTO alta_productos(tNombreProducto,tCantidadproducto,tCategoriaproducto,tSubcategorias,tPreciocompra,tPrecioventa,tDescripcionproducto) VALUES ($tNombreProducto,$tCantidadproducto,$tCategoriaproducto,$tSubcategorias,$tPreciocompra,$tPrecioventa,$tDescripcionproducto)");
+    $ins = $mysqli->query("INSERT INTO alta_productos(tNombreProducto,tCantidadproducto,tCategoriaproducto,tPreciocompra,tPrecioventa,tDescripcionproducto) VALUES ('$tNombreProducto','$tCantidadproducto','$tCategoriaproducto','$tPreciocompra','$tPrecioventa','$tDescripcionproducto')");
 
     if ($ins) {
         echo 'success';
@@ -29,13 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="d-flex justify-content-center"> 
         <div class="card col-sm-5 p-5">
 <form method="POST"class="row g-4">
-  <div class="col-md-7">
+  <div class="col-md-12">
     <label class="form-label">Nombre del Producto</label>
     <input type="text"  name="tNombreProducto" id="tNombreProducto" class="form-control">
   </div>
-  <div class="col-md-5">
+  <div class="col-md-6">
     <label class="form-label">Cantidad de Producto</label>
-    <input type="number" name="tCantidadProducto" id="tNombreProducto" class="form-control">
+    <input type="number" name="tCantidadProducto" id="tCantidadProducto" class="form-control">
   </div>
 
   <br>
@@ -43,17 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <label class="form-label">Categoria del Producto</label>
     <select class="form-select" id="tCategoriaProducto" name="tCategoriaProducto">
       <option selected>Categorias...</option>
+                <?php
+                    $query = $mysqli -> query ("SELECT * FROM alta_categorias");
+                    while ($valores = mysqli_fetch_array($query)) {
+                        echo '<option value="'.$valores['id_Categoria'].'">'.$valores['tNombrecategoria'].'</option>';
+                    }
+                ?>
     </select>
-
   </div>
-  <div class="col-md-6">
-    <label class="form-label">Subcategorias</label>
-    <select id="tSubcategoria" name="tSubcategoria"class="form-select">
-      <option selected>Subcategorias...</option>
-    </select>
-
-  </div>
-  
   <br>
   <div class="col-6">
     <label class="form-label">Precio de Compra</label>
@@ -82,27 +78,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 </form>
 
-<?php include ('footer.php'); ?>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#categorias').val(1);
-		recargarLista();
-
-		$('#categorias').change(function(){
-			recargarLista();
-		});
-	})
-</script>
-<script type="text/javascript">
-	function recargarLista(){
-		$.ajax({
-			type:"POST",
-			url:"conexion1.php",
-			data:"categoria=" + $('#categorias').val(),
-			success:function(r){
-				$('#select-subcategorias').html(r);
-			}
-		});
-        
-	}
-</script>
